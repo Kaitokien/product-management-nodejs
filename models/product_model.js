@@ -14,7 +14,9 @@ const productSchema = new mongoose.Schema({
     position: Number,
     slug: {
       type: String,
-      slug: "title",
+      slug: "title", /* The slug field should be generated based on the title field of the document. 
+      The value of slug will be a transformed version of the title, often lowercased and with spaces replaced by hyphens or underscores, 
+      to make it URL-friendly */
       unique: true
     },
     deleted: {
