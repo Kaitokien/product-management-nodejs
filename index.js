@@ -6,6 +6,7 @@ const session = require('express-session');
 const router = require('./routers/client/index_router');
 const routerAdmin = require('./routers/admin/index_router');
 const flash = require('express-flash');
+const path = require('path');
 const multer = require('multer');
 
 const systemConfig = require("./config/system.js");
@@ -28,6 +29,10 @@ app.use(cookieParser("123"));
 app.use(session({ cookie: {maxAge: 60000} }));
 app.use(flash());
 // End flash
+
+// TinyMCE
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
+// End TinyMCE
 
 // App Locals Variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
