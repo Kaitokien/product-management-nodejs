@@ -73,7 +73,38 @@ module.exports.edit = async (req, res) => {
 module.exports.editPatch = async (req, res) => {
   const id = req.params.id;
   req.body.position = parseInt(req.body.position);
-  await Product.updateOne({ _id: req.params.id }, req.body);
-
+  await ProductCategory.updateOne({ _id: req.params.id }, req.body);
+  req.flash('success', "Cập nhật danh mục thành công");
   res.redirect('back');
+}
+
+// [GET] /admin/products-category/detail/:id
+module.exports.detail = async (req, res) => {
+  try {
+    const find = {
+      deleted: false,
+      _id: req.params.id
+    }
+    const category = await ProductCategory.findOne(find);
+
+    res.render("admin/pages/products-category/detail", {
+      titlePage: "Chi tiết danh mục sản phẩm",
+      category: category
+    });
+  } catch (error) {
+    res.redirect(`${systemConfig.prefixAdmin}/products`);
+  }
+}
+
+// [DELETE] /admin/products-category/delete/:id
+module.exports.deleteCategory = async (req, res) => {
+  await ProductCategory.updateOne(
+    {_id: req.params.id}, 
+    {
+      deleted: true,
+      deletedAt: new Date()
+    }
+  );
+  req.flash("success", "Đã xóa thành công");
+  res.redirect("back");
 }
