@@ -4,7 +4,7 @@ include ../../mixins/alert.pug
 block main
   +alert-error(5000)
   +alert-success(5000)
-  h1(class="mb-4") Chỉnh sửa sản phẩm
+  h1(class="mb-4") Chỉnh sửa nhóm quyền
 
   form(
     action=`${prefixAdmin}/roles/edit/${data.id}?_method=PATCH`, 
