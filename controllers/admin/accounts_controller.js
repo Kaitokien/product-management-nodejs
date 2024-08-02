@@ -97,3 +97,14 @@ module.exports.editPatch = async (req, res) => {
   }
   res.redirect('back');
 }
+
+module.exports.detail = async (req, res) => {
+  const id = req.params.id;
+  const account = await Account.findOne({
+    _id: id,
+    deleted: false
+  })
+  res.render('admin/pages/accounts/detail', {
+    account: account
+  });
+}
