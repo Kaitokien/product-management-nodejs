@@ -98,6 +98,7 @@ module.exports.editPatch = async (req, res) => {
   res.redirect('back');
 }
 
+// [GET] /admin/accounts/detail/:id
 module.exports.detail = async (req, res) => {
   const id = req.params.id;
   const account = await Account.findOne({
@@ -107,4 +108,18 @@ module.exports.detail = async (req, res) => {
   res.render('admin/pages/accounts/detail', {
     account: account
   });
+}
+
+// [DELETE] /admin/accounts/delete/:id
+module.exports.deleteAccount = async (req, res) => {
+  const id = req.params.id;
+
+  await Account.updateOne({
+    _id: id
+  },
+  {
+    deleted: true,
+    deletedAt: new Date()
+  });
+  res.redirect('back');
 }
