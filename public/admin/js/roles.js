@@ -61,3 +61,21 @@ if(dataRecords) {
   })
 }
 // End Permission data default
+
+// Delete roles
+const buttons = document.querySelectorAll('[button-delete]');
+const formDeleteRole = document.querySelector('#form-delete-role')
+
+buttons.forEach(button => {
+  button.addEventListener("click", () => {
+    const isConfirm = confirm("Are you sure that you want to delete this role?");
+    if(isConfirm) {
+      const id = button.getAttribute('data-id');
+      const path = formDeleteRole.getAttribute('data-path')
+      const action = `${path}/${id}?_method=DELETE`;
+      formDeleteRole.action = action;
+      formDeleteRole.submit();
+    }
+  })
+})
+// End delete roles
