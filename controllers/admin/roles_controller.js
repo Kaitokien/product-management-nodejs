@@ -87,3 +87,17 @@ module.exports.permissionsPatch = async (req, res) => {
   }
   res.redirect('back');
 }
+
+// [DELETE] /admin/roles/delete/:id
+module.exports.deleteRole = async (req, res) => {
+  const id = req.params.id;
+  await Role.updateOne(
+    {_id: id}, 
+    {
+      deleted: true,
+      deletedAt: new Date()
+    }
+  );
+
+  res.redirect("back");
+}
