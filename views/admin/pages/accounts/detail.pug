@@ -18,9 +18,10 @@ block main
       else
         span(class="badge text-bg-danger") Dừng hoạt động
 
-  a(
-    href=`${prefixAdmin}/accounts/edit/${account.id}`
-    class="badge text-bg-warning"
-  ) Chỉnh sửa
+  if (role.permissions.includes("accounts_edit"))
+    a(
+      href=`${prefixAdmin}/accounts/edit/${account.id}`
+      class="badge text-bg-warning"
+    ) Chỉnh sửa
 
   script(src="/admin/js/product.js") 
