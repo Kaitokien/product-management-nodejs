@@ -8,6 +8,7 @@ const paginationHelper = require('../../helpers/pagination');
 const { model } = require("mongoose");
 const createTreeHelper = require('../../helpers/createTree');
 const ProductCategory = require('../../models/product-category_model');
+const Account = require('../../models/account_model');
 
 // [GET] /admin/products
 
@@ -58,7 +59,14 @@ module.exports.index = async (req, res) => {
   .limit(objectPagination.limitItems)
   .skip(objectPagination.skip);
 
-  // console.log(products);
+  for (const product of products) {
+    const user = await Account.findOne({
+      _id: product.createdBy.account_id
+    });
+    if (user) {
+      product.accountFullName = user.fullName;
+    }
+  }
 
   res.render("admin/pages/products/index", {
     titlePage: "Danh sách sản phẩm",
@@ -151,6 +159,7 @@ module.exports.create = async (req, res) => {
   });
 }
 
+// [POST] /admin/products/create
 module.exports.createPost = async (req, res) => {
   
   req.body.price = parseInt(req.body.price);
@@ -164,6 +173,10 @@ module.exports.createPost = async (req, res) => {
     req.body.position = countProducts + 1;
   } else {
     req.body.position = parseInt(req.body.position);
+  }
+
+  req.body.createBy = {
+    account_id: res.locals.user.id
   }
 
   const product = new Product(req.body);
