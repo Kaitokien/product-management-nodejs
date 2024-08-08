@@ -8,6 +8,7 @@ const routerAdmin = require('./routers/admin/index_router');
 const flash = require('express-flash');
 const path = require('path');
 const multer = require('multer');
+const moment = require('moment');
 
 const systemConfig = require("./config/system.js");
 const app = express() //Toàn bộ chương trình
@@ -36,6 +37,7 @@ app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce
 
 // App Locals Variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
+app.locals.moment = moment;
 
 // app.get('/', (req, res) => {
 //     res.render("client/pages/home/index"); //Ở sẵn trong mục views rồi nên không cần thêm nữa
