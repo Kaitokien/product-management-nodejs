@@ -111,7 +111,11 @@ module.exports.changeMulti = async (req, res) => {
       await Product.updateMany({ _id: { $in: ids }}, 
         {
           deleted: true,
-          deletedAt: new Date()
+          // deletedAt: new Date()
+          deletedBy: {
+            account_id: res.locals.user.id,
+            deletedAt: new Date()
+          }
         });
         req.flash("success", `Deleted ${ids.length} item(s) successfully`)
       break;
@@ -138,7 +142,11 @@ module.exports.deleteItem = async (req, res) => {
     {_id: id}, 
     {
       deleted: true,
-      deletedAt: new Date()
+      // deletedAt: new Date()
+      deletedBy: {
+        account_id: res.locals.user.id,
+        deletedAt: new Date()
+      }
     }
   );
 
@@ -175,7 +183,7 @@ module.exports.createPost = async (req, res) => {
     req.body.position = parseInt(req.body.position);
   }
 
-  req.body.createBy = {
+  req.body.createdBy = {
     account_id: res.locals.user.id
   }
 
