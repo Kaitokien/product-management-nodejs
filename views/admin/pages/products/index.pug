@@ -95,10 +95,11 @@ block main
                         data-id=item.id
                         button-change-status 
                         class="badge text-bg-danger") Dừng hoạt động
-                    td 
-                      p #{item.accountFullName}
-                      p
-                        +formatDateTime(item.createdBy.createdAt)
+                    td
+                      if(item.accountFullName)
+                        p #{item.accountFullName}
+                        p
+                          +formatDateTime(item.createdBy.createdAt)
                     td
                       a(
                         href=`${prefixAdmin}/products/detail/${item.id}`
