@@ -12,6 +12,13 @@ module.exports.cartId = async (req, res, next) => {
     // console.log(cart);
   } else {
     // Lay gio hang ra
+    const cart = await Cart.findOne({
+      _id: req.cookies.cartId
+    });
+
+    cart.totalQuantity = cart.products.reduce((sum, item) => sum + item.quantity, 0);
+    // console.log(cart);
+    res.locals.miniCart = cart;
   }
   next();
 }

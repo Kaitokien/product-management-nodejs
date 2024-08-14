@@ -23,7 +23,7 @@ header.header
               class="btn btn-primary"
             ) Tìm
 
-      .col-9
+      .col-4
         .inner-menu
           ul
             li 
@@ -32,3 +32,5 @@ header.header
               - const pathProduct = "/products"
               a(href=pathProduct) Sản phẩm
                 +sub-menu(layoutsProductsCategory, pathProduct)
+            li
+              a(href="#") Giỏ hàng (#{miniCart ? miniCart.totalQuantity : 0})

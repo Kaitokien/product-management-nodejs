@@ -6,13 +6,13 @@ module.exports.add = async (req, res) => {
   const quantity = parseInt(req.body.quantity);
   const cartId = req.cookies.cartId;
 
-  const cart = await Cart.find({
+  const cart = await Cart.findOne({
     _id: cartId
   })
   // console.log(cart.products);
 
   const existProductInCart = cart.products.find(item => item.product_id == productId);
-  console.log(existProductInCart)
+  // console.log(existProductInCart)
 
   if(existProductInCart) {
     const quantityNew = quantity + existProductInCart.quantity;
