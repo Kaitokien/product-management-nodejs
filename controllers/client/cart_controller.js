@@ -72,3 +72,25 @@ module.exports.add = async (req, res) => {
   req.flash('success', 'Đã thêm sản phẩm vào giỏ hàng')
   res.redirect('back');
 }
+
+// [GET] cart/delete/:productId
+module.exports.delete = async (req, res) => {
+  const cartId = req.cookies.cartId;
+  const productId = req.params.productId;
+  // console.log(productId)
+
+  await Cart.updateOne({
+    _id: cartId
+  }, {
+    $pull: { products: { product_id: productId } }
+  })
+
+  // Cách 2: update cart sử dụng findById
+  // const cart = await Cart.findById(cartId);
+  // const indexProduct = cart.products.findIndex(dataIndex => dataIndex.product_id === productId);
+  // cart.products.splice(indexProduct, 1);
+  // await cart.save()
+
+  req.flash("success", "Đã xóa sản phẩm thành công");
+  res.redirect('back');
+}
