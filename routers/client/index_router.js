@@ -4,6 +4,7 @@ const categoryMiddleware = require('../../middlewares/client/category_middleware
 const searchRouters = require('./search_router.js');
 const cartMiddleware = require('../../middlewares/client/cart_middleware.js');
 const cartRouter = require('./cart_router.js');
+const checkoutRouter = require('./checkout_router.js');
 
 module.exports = (app) => {
   app.use(categoryMiddleware.category);
@@ -18,4 +19,5 @@ module.exports = (app) => {
   // Dòng 6: luôn sử dụng categoryMiddleware.category để sau này có nhân bản thêm nữa thì các trang luôn sử dụng categoryMiddleware.category
   app.use('/search', searchRouters);
   app.use('/cart', cartRouter);
+  app.use('/checkout', checkoutRouter);
 }
