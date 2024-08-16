@@ -6,11 +6,13 @@ const cartMiddleware = require('../../middlewares/client/cart_middleware.js');
 const cartRouter = require('./cart_router.js');
 const checkoutRouter = require('./checkout_router.js');
 const userController = require('./user_router.js');
+const userMiddleware = require('../../middlewares/client/user_middleware');
 
 module.exports = (app) => {
   app.use(categoryMiddleware.category);
   app.use(cartMiddleware.cartId);
   app.use('/', homeRouters);
+  app.use(userMiddleware.infoUser);
 
   //(req, res) => {
       // res.render("client/pages/home/index"); //Ở sẵn trong mục views rồi nên không cần thêm nữa
