@@ -11,9 +11,8 @@ const userMiddleware = require('../../middlewares/client/user_middleware');
 module.exports = (app) => {
   app.use(categoryMiddleware.category);
   app.use(cartMiddleware.cartId);
-  app.use('/', homeRouters);
   app.use(userMiddleware.infoUser);
-
+  app.use('/', homeRouters);
   //(req, res) => {
       // res.render("client/pages/home/index"); //Ở sẵn trong mục views rồi nên không cần thêm nữa
   //}
