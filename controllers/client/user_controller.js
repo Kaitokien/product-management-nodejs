@@ -3,6 +3,7 @@ const md5 = require('md5');
 const generateHelper = require('../../helpers/generate');
 const ForgotPassword = require('../../models/forgot-password');
 const sendMailHelper = require('../../helpers/sendMail');
+const Cart = require('../../models/cart_model');
 
 // [GET] /user/register
 module.exports.register = async (req, res) => {
@@ -58,6 +59,12 @@ module.exports.loginPost = async (req, res) => {
     req.flash('error', 'Tài khoản đang bị khóa!')
     res.redirect('back');
   }
+
+  await Cart.updateOne({
+    _id: req.cookie.cartId
+  }, {
+    user_id: user.id
+  })
   res.cookie('tokenUser', user.tokenUser);
   res.redirect('/');
 }
