@@ -217,8 +217,6 @@
 
 /* Chat */
 
-/* Chat */
-
 .chat {
   background: #f7f7f7;
   border-radius: 10px;
@@ -227,6 +225,8 @@
 }
 
 .chat .inner-body {
+  display: flex;
+  flex-direction: column;
   padding: 15px;
   max-height: 400px;
   overflow-y: auto;

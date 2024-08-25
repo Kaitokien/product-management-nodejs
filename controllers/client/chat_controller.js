@@ -1,8 +1,10 @@
+const { isObjectIdOrHexString } = require('mongoose');
 const Chat = require('../../models/chat_model');
 const User = require('../../models/user_model');
 // [GET] /chat
 module.exports.index = async (req, res) => {
   const userId = res.locals.user.id;
+  const fullName = res.locals.user.fullName;
   // SocketIO
   _io.once('connection', (socket) => {
     socket.on("CLIENT_SEND_MESSAGE", async (content) => {
@@ -11,9 +13,17 @@ module.exports.index = async (req, res) => {
         content: content
       })
       await chat.save();
+
+      // Trả data về cho client
+      _io.emit("SERVER_RETURN_MESSAGE", {
+        userId: userId,
+        fullName: fullName,
+        content: content
+      });
     });
   })
 
+ 
   // Lấy data từ database
   const chats = await Chat.find({
     deleted: false
@@ -26,7 +36,6 @@ module.exports.index = async (req, res) => {
     chat.infoUser = infoUser
   }
   // Hết lấy data từ database
-  console.log(chats);
 
   res.render('client/pages/chat/index', {
     pageTitle: "Chat",
