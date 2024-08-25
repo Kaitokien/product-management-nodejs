@@ -21,8 +21,17 @@ module.exports.index = async (req, res) => {
         content: content
       });
     });
-  })
 
+    //Typing
+    socket.on("CLIENT_SEND_TYPING", async (type) => {
+      socket.broadcast.emit("SERVER_RETURN_TYPING", {
+        userId: userId,
+        fullName: fullName,
+        type: type
+      })
+    });
+    // End Typing
+  })
  
   // Lấy data từ database
   const chats = await Chat.find({

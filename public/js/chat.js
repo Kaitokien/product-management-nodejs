@@ -63,6 +63,17 @@ if(emojiPicker) {
     const icon = e.detail.unicode;
     inputChat.value = inputChat.value + icon;
   });
+  // Input keyup
+  inputChat.addEventListener("keyup", () => {
+    socket.emit("CLIENT_SEND_TYPING", "show");
+  })
+  // End input keyup
 }
 // End insert Icon to Input
 // End Show Icon Chat
+
+// SERVER_RETURN_TYPING
+socket.on("SERVER_RETURN_TYPING", (data) => {
+  console.log(data);
+});
+// End SERVER_RETURN_TYPING
