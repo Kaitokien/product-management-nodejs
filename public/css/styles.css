@@ -306,3 +306,14 @@
 .chat .inner-form i {
   font-size: 18px;
 }
+
+/* Emoji Icon */
+.tooltip:not(.shown) {
+  visibility: hidden;
+}
+
+.tooltip.shown {
+  visibility: visible;
+  opacity: 1;
+}
+/* End emoji Icon */
