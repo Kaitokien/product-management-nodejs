@@ -59,7 +59,7 @@ if (buttonIcon) {
 const emojiPicker = document.querySelector('emoji-picker');
 if(emojiPicker) {
   const inputChat = document.querySelector('.chat .inner-form input[name="content"]');
-  emojiPicker.addEventListener("click", (e) => {
+  emojiPicker.addEventListener("emoji-click", (e) => {
     const icon = e.detail.unicode;
     inputChat.value = inputChat.value + icon;
   });
