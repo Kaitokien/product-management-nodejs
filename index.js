@@ -9,15 +9,24 @@ const flash = require('express-flash');
 const path = require('path');
 const multer = require('multer');
 const moment = require('moment');
+const app = express() //Toàn bộ chương trình
+const http = require('http');
+const server = http.createServer(app);
 
 const systemConfig = require("./config/system.js");
-const app = express() //Toàn bộ chương trình
 require("dotenv").config();
 const port = process.env.PORT //Số cổng localhost
 const database = require("./config/database");
 
 database.connect();
 app.use(methodOverride('_method'));
+
+// Socket.id
+const { Server } = require('socket.io');
+const io = new Server(server);
+io.on('connection', (socket) => {
+  console.log('A user connected', socket.id)
+})
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false })); //đọc trên npm để hiểu rõ extended là gì
@@ -55,7 +64,7 @@ app.get("*", (req, res) => {
   })
 })
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`App listening on port ${port}`);
 });
 
