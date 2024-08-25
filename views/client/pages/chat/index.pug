@@ -11,24 +11,26 @@ block main
       .col-12
         .chat
           .inner-body
-            .inner-incoming
-              .inner-name Em yêu
-              .inner-content
-                | A ơi sang nhà e nha, nhà e không có ai ở nhà
-            .inner-outgoing
-              .inner-content
-                | Thế à?
-            .inner-incoming
-              .inner-name Em yêu
-              .inner-content
-                | Nhanh nha
-            .inner-outgoing
-              .inner-content
-                | Có ai ở nhà đâu?
-            .inner-incoming
-              .inner-name Em yêu
-              .inner-content
-                | Thì e bảo ko ai ở nhà mà :))
+            each chat in chats
+              div(class=(chat.user_id == user.id ? "inner-outgoing" : "inner-incoming"))
+                if (chat.user_id != user.id)
+                  .inner-name #{chat.infoUser.fullName}
+                .inner-content
+                  | #{chat.content}
+            //- .inner-outgoing
+            //-   .inner-content
+            //-     | Thế à?
+            //- .inner-incoming
+            //-   .inner-name Em yêu
+            //-   .inner-content
+            //-     | Nhanh nha
+            //- .inner-outgoing
+            //-   .inner-content
+            //-     | Có ai ở nhà đâu?
+            //- .inner-incoming
+            //-   .inner-name Em yêu
+            //-   .inner-content
+            //-     | Thì e bảo ko ai ở nhà mà :))
           .inner-foot
             form(
               class="inner-form"
