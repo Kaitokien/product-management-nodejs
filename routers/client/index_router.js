@@ -9,6 +9,7 @@ const userController = require('./user_router.js');
 const userMiddleware = require('../../middlewares/client/user_middleware');
 const settingMiddleware = require('../../middlewares/client/setting_middleware.js');
 const chatRouter = require('./chat_router.js');
+const authMiddleware = require('../../middlewares/client/auth_middleware.js');
 
 module.exports = (app) => {
   app.use(categoryMiddleware.category);
@@ -26,5 +27,5 @@ module.exports = (app) => {
   app.use('/cart', cartRouter);
   app.use('/checkout', checkoutRouter);
   app.use('/user', userController);
-  app.use('/chat', chatRouter);
+  app.use('/chat', authMiddleware.requireAuth, chatRouter);
 }

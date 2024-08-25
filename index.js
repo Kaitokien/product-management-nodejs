@@ -24,9 +24,7 @@ app.use(methodOverride('_method'));
 // Socket.id
 const { Server } = require('socket.io');
 const io = new Server(server);
-io.on('connection', (socket) => {
-  console.log('A user connected', socket.id)
-})
+global._io = io;
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false })); //đọc trên npm để hiểu rõ extended là gì
