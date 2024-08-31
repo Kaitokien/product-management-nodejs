@@ -22,21 +22,15 @@ block main
               tr
                 td Họ tên
                 td
-                  b #{order.userInfo.fullName}
+                  b #{order.user_info.fullName}
               tr
                 td Số điện thoại
                 td
-                  b #{order.userInfo.phone}
+                  b #{order.user_info.phone}
               tr
                 td Địa chỉ
                 td
-                  b #{order.userInfo.address}
-
-      .row 
-      .col-12
-        div(class="alert alert-success")
-          | Chúc mừng bạn đã đặt hàng thành công! Chúng tôi sẽ xử lý đơn hàng trong thời gian sớm nhất
-      
+                  b #{order.user_info.address}      
       .row
         .col-12
           h4(class="mb-2") Thông tin đơn hàng
